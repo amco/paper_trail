@@ -58,7 +58,7 @@ module PaperTrail
         self.versions_association_name = options[:versions] || :versions
 
         has_many self.versions_association_name,
-                 lambda { |_model| order("#{PaperTrail.timestamp_field} ASC", "#{_model.class.version_key} ASC") },
+                 lambda { |_model| order("#{PaperTrail.timestamp_field} ASC") },
                  :class_name => self.version_class_name, :as => :item
                  
         after_create  :record_create, :if => :save_version? if !options[:on] || options[:on].include?(:create)
